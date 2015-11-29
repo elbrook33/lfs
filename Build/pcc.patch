@@ -1,0 +1,19 @@
+diff --git a/pcc-1.1.0.old/os/linux/ccconfig.h b/pcc-1.1.0.new/os/linux/ccconfig.h
+index 8054b11..ea27c4c 100644
+--- a/pcc-1.1.0.old/os/linux/ccconfig.h
++++ b/pcc-1.1.0.new/os/linux/ccconfig.h
+@@ -46,11 +46,11 @@
+ #elif defined(mach_amd64)
+ #define CPPMDADD	{ "-D__x86_64__", "-D__x86_64", "-D__amd64__", \
+ 	"-D__amd64", "-D__LP64__", "-D_LP64", NULL, }
+-#define	DYNLINKER { "-dynamic-linker", "/lib64/ld-linux-x86-64.so.2", NULL }
++#define	DYNLINKER { "-dynamic-linker", "/Software/Compilers/Libraries/ld-musl-x86_64.so.1", "-nostdlib", "-z", "muldefs", NULL }
+ #ifndef MULTIARCH_PATH
+-#define	DEFLIBDIRS	{ "/usr/lib64/", 0 }
++#define	DEFLIBDIRS	{ "/Software/Compilers/Libraries", 0 }
+ #else
+-#define	DEFLIBDIRS	{ "/usr/lib64/", "/usr/lib/" MULTIARCH_PATH "/", 0 }
++#define	DEFLIBDIRS	{ "/Software/Compilers/Libraries", "/usr/lib/" MULTIARCH_PATH "/", 0 }
+ #endif
+ #elif defined(mach_mips)
+ #define CPPMDADD { "-D__mips__", NULL, }

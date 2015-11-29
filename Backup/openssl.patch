@@ -1,0 +1,15 @@
+diff -c -r openssl-1.0.2d.old/ssl/d1_lib.c openssl-1.0.2d.new/ssl/d1_lib.c
+*** openssl-1.0.2d.old/ssl/d1_lib.c	Thu Jul  9 11:57:15 2015
+--- openssl-1.0.2d.new/ssl/d1_lib.c	Thu Nov 26 08:25:50 2015
+***************
+*** 306,314 ****
+           * highest protocol version).
+           */
+          if (s->ctx->method->version == DTLS_method()->version) {
+- #if DTLS_MAX_VERSION != DTLS1_2_VERSION
+- # error Code needs update for DTLS_method() support beyond DTLS1_2_VERSION.
+- #endif
+              if (!(s->options & SSL_OP_NO_DTLSv1_2))
+                  return s->version == DTLS1_2_VERSION;
+              if (!(s->options & SSL_OP_NO_DTLSv1))
+--- 306,311 ----

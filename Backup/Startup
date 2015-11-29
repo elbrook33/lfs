@@ -1,0 +1,62 @@
+#!/Software/_nix-shell/bash
+
+msg() {
+	echo -e \\033c
+	echo "Hello!"
+	echo
+	echo $1
+}
+
+# STARTUP
+
+msg "Setting up commands"
+. /Software/Installers/refresh-paths
+
+echo "Loading system control directories"
+mount --all
+
+echo "Checking disks and remounting as writable"
+umount /
+fsck -a -T / # Automatically repair, don't show title.
+mount / --no-mtab -o remount,rw
+
+msg "Loading modules"
+export MODPROBE_OPTIONS="-d /System"
+modprobe -a `hwdetect --show-modules-order --kernel_directory=/System \
+	| sed 's/MODULES ORDER: //'`
+
+msg "Connecting to network"
+ifconfig --short eth0 up
+dhcpcd
+
+
+# MAIN
+
+msg "Logging in"
+bash --login
+
+
+# SHUTDOWN
+
+bye() {
+	echo -e \\033c
+	echo "Goodbye!"
+	echo
+	echo $1
+}
+
+bye "Stopping all processes"
+killall --regexp ".*" #--verbose
+sleep 5
+
+bye "Unmounting everything"
+umount /
+fsck -a -T / # Automatically repair, don't show title.
+umount --all
+mount / --no-mtab -o remount,ro # Read-only, so we can still shut down.
+
+echo "Powering off"
+exec /System/Shutdown
+
+
+# SEE ALSO: /etc/fstab

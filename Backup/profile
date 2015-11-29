@@ -1,0 +1,10 @@
+# System settings
+
+## Paths for executables ##
+. /Software/Installers/refresh-paths
+
+## Colourise "ls" ##
+alias ls="ls --color=auto"
+
+## Show current working directory in prompt ##
+PS1="\w> "

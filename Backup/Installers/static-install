@@ -1,0 +1,19 @@
+#!/bin/sh
+
+# Usage: static-install group_name tar_file
+
+mkdir $1
+mkdir /Apps/$1
+
+pushd $1
+	tar -xf "../$2"
+	mv bin/* /Apps/$1/
+	mv sbin/* /Apps/$1/
+	mv usr/bin/* /Apps/$1/
+	mv usr/sbin/* /Apps/$1/
+	mv usr/include /Apps/$1/Headers
+	mv usr/lib /Apps/$1/Libraries
+	mv usr/share /Apps/$1/Resources
+popd
+
+rm -R $1

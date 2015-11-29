@@ -1,0 +1,8 @@
+# Use with "source": souce refresh-paths (or . refresh-paths)
+
+PATH=/Software/_nix-shell
+PATH=`find /Software/* -maxdepth 0 -type d -printf "%p:"`
+PATH=`find /Apps/* -maxdepth 0 -type d -printf "%p:"`/bin:$PATH
+export PATH
+
+export LD_LIBRARY_PATH=`find /Apps/*/Libraries -maxdepth 0 -type d -printf "%p:"`
